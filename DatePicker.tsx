@@ -57,7 +57,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 				<div
 					key={i}
 					className={`day ${selectedDate?.getDate() === i ? 'selected' : ''}`}
-					onClick={() => handleDateClick(i)}
+					onClick={(e) => handleDateClick(i, e)}
 				>
 					{i}
 				</div>
@@ -67,7 +67,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
 		return days;
 	};
 
-	const handleDateClick = (day: number) => {
+	const handleDateClick = (day: number, e: React.MouseEvent) => {
+		e.stopPropagation();
 		const newDate = new Date(
 			currentDate.getFullYear(),
 			currentDate.getMonth(),
@@ -78,25 +79,32 @@ const DatePicker: React.FC<DatePickerProps> = ({
 		setIsOpen(false);
 	};
 
-	const changeMonth = (increment: number) => {
+	const changeMonth = (increment: number, e: React.MouseEvent) => {
+		e.stopPropagation();
 		setCurrentDate(
 			new Date(currentDate.getFullYear(), currentDate.getMonth() + increment, 1)
 		);
 	};
 
-	const changeYear = (increment: number) => {
+	const changeYear = (increment: number, e: React.MouseEvent) => {
+		e.stopPropagation();
 		setCurrentDate(
 			new Date(currentDate.getFullYear() + increment, currentDate.getMonth(), 1)
 		);
 	};
 
-	const toggleDatePicker = () => {
+	const toggleDatePicker = (e: React.MouseEvent) => {
+		e.stopPropagation();
 		setIsOpen(!isOpen);
 	};
 
 	const formatDate = (date: Date | null) => {
 		if (!date) return '';
 		return date.toLocaleDateString(locale);
+	};
+
+	const handleCalendarClick = (e: React.MouseEvent) => {
+		e.stopPropagation();
 	};
 
 	return (
@@ -114,20 +122,20 @@ const DatePicker: React.FC<DatePickerProps> = ({
 				<span className="calendar-icon"></span>
 			</div>
 			{isOpen && (
-				<div className="date-picker">
+				<div className="date-picker" onClick={handleCalendarClick}>
 					<div className="header">
-						<button onClick={() => changeYear(-1)} className="year-nav">
+						<button onClick={(e) => changeYear(-1, e)} className="year-nav">
 							&lt;&lt;
 						</button>
-						<button onClick={() => changeMonth(-1)}>&lt;</button>
+						<button onClick={(e) => changeMonth(-1, e)}>&lt;</button>
 						<span>
 							{currentDate.toLocaleString(locale, {
 								month: 'long',
 								year: 'numeric',
 							})}
 						</span>
-						<button onClick={() => changeMonth(1)}>&gt;</button>
-						<button onClick={() => changeYear(1)} className="year-nav">
+						<button onClick={(e) => changeMonth(1, e)}>&gt;</button>
+						<button onClick={(e) => changeYear(1, e)} className="year-nav">
 							&gt;&gt;
 						</button>
 					</div>
