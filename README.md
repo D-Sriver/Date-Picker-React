@@ -5,7 +5,7 @@
 
 Un composant DatePicker. Pour la sélection de date.
 
-![Image du sélecteur de date](/datepiker.gif)
+![Image du sélecteur de date](https://github.com/D-Sriver/Date-Picker-React/raw/main/datepiker.gif)
 
 [English version](#english-version)
 
@@ -84,11 +84,7 @@ Le composant DatePicker peut être personnalisé avec les props suivantes :
 | onChange    | Function | -          | Fonction appelée lors de la sélection d'une date |
 | initialDate | Date     | new Date() | Date initiale à afficher                         |
 | name        | string   | ''         | Nom du champ de saisie                           |
-| locale      | string   | 'fr-FR'    | Code de langue pour la localisation              |
-
-```bash
-npm run test
-```
+| locale      | string   | 'en-US'    | Code de langue pour la localisation              |
 
 ## Contribution
 
@@ -96,7 +92,7 @@ Les contributions sont les bienvenues ! Veuillez suivre ces étapes pour contrib
 
 1. Forkez le projet
 2. Créez votre branche de fonctionnalité (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
+3. Commitez vos changements (`git commit -m 'Add some AmazingFeature'`)
 4. Poussez vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrez une Pull Request
 
@@ -126,7 +122,7 @@ MIT
 
 A DatePicker component for date selection.
 
-![DatePicker Image](/datepiker.gif)
+![DatePicker Image](https://github.com/D-Sriver/Date-Picker-React/raw/main/datepiker.gif)
 
 ## Table of Contents
 
@@ -204,10 +200,6 @@ The DatePicker component can be customized with the following props:
 | initialDate | Date     | new Date() | Initial date to display                 |
 | name        | string   | ''         | Name of the input field                 |
 | locale      | string   | 'en-US'    | Language code for localization          |
-
-```bash
-npm run test
-```
 
 ## Contribution
 
