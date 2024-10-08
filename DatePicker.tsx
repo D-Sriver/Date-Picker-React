@@ -5,12 +5,14 @@ interface DatePickerProps {
 	onChange: (date: Date) => void;
 	initialDate?: Date;
 	name: string;
+	locale?: string; // Ajout de la prop locale
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
 	onChange,
 	initialDate,
 	name,
+	locale = 'en-US', // Valeur par défaut pour la locale
 }) => {
 	const [currentDate, setCurrentDate] = useState(initialDate || new Date());
 	const [selectedDate, setSelectedDate] = useState<Date | null>(
@@ -45,7 +47,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
 		const firstDay = new Date(year, month, 1).getDay();
 		const totalDays = daysInMonth(year, month);
 
-		const days = [];
+		const days: React.ReactNode[] = [];
+
 		for (let i = 0; i < firstDay; i++) {
 			days.push(<div key={`empty-${i}`} className="empty-day"></div>);
 		}
@@ -93,7 +96,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
 	const formatDate = (date: Date | null) => {
 		if (!date) return '';
-		return date.toLocaleDateString();
+		return date.toLocaleDateString(locale);
 	};
 
 	return (
@@ -118,7 +121,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 						</button>
 						<button onClick={() => changeMonth(-1)}>&lt;</button>
 						<span>
-							{currentDate.toLocaleString('default', {
+							{currentDate.toLocaleString(locale, {
 								month: 'long',
 								year: 'numeric',
 							})}
@@ -130,11 +133,34 @@ const DatePicker: React.FC<DatePickerProps> = ({
 					</div>
 					<div className="calendar">
 						<div className="weekdays">
-							{['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-								<div key={day} className="weekday">
-									{day}
-								</div>
-							))}
+							{locale === 'fr-FR'
+								? ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(
+										(day) => (
+											<div key={day} className="weekday">
+												{day}
+											</div>
+										)
+								  )
+								: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(
+										(day) => (
+											<div key={day} className="weekday">
+												{new Date(
+													2024,
+													0,
+													day === 'Sun'
+														? 7
+														: [
+																'Mon',
+																'Tue',
+																'Wed',
+																'Thu',
+																'Fri',
+																'Sat',
+														  ].indexOf(day) + 1
+												).toLocaleString(locale, { weekday: 'short' })}
+											</div>
+										)
+								  )}
 						</div>
 						<div className="days">{renderCalendar()}</div>
 					</div>
