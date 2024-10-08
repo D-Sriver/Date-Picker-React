@@ -98,15 +98,19 @@ Les contributions sont les bienvenues ! Veuillez suivre ces étapes pour contrib
 
 ## Changelog
 
-### Version 1.0.3
+#### Version 1.0.4
+
+- Implementation de la prévention de la propagation des événements
+
+#### Version 1.0.3
 
 - Ajout de la prop locale pour la localisation (EN ou FR)
 
-### Version 1.0.2
+#### Version 1.0.2
 
 - Ajout du README.md
 
-### Version 1.0.0
+#### Version 1.0.0
 
 - Création du datepicker
 
@@ -213,15 +217,19 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ## Changelog
 
-### Version 1.0.3
+#### Version 1.0.4
+
+- Implement event propagation prevention
+
+#### Version 1.0.3
 
 - Added locale prop for localization (EN or FR)
 
-### Version 1.0.2
+#### Version 1.0.2
 
 - Added README.md
 
-### Version 1.0.0
+#### Version 1.0.0
 
 - Created the datepicker
 
