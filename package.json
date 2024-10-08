@@ -1,0 +1,11 @@
+{
+	"name": "@sriver/date-picker-react-v2",
+	"version": "1.0.1",
+	"description": "Date-picker-react-oc-v2",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "sriver",
+	"license": "ISC"
+}
