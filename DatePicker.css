@@ -110,10 +110,161 @@
 }
 
 .day.selected {
-	background-color: #4caf50;
+	background-color: #64a30dc3;
 	color: white;
 }
 
 .empty-day {
 	visibility: hidden;
+}
+
+.date-picker .header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px;
+	background-color: #f0f0f0;
+	gap: 10px;
+}
+
+.date-picker .header .selects-container {
+	display: flex;
+	gap: 10px;
+}
+
+.date-picker .header select {
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: white;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.date-picker .header .month-select {
+	width: 120px;
+}
+
+.date-picker .header .year-select {
+	width: 80px;
+}
+
+.custom-select-container {
+	position: relative;
+	z-index: 2;
+}
+
+.custom-select {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 120px;
+	padding: 8px 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: white;
+	cursor: pointer;
+	user-select: none;
+	transition: all 0.3s ease;
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+}
+
+.custom-select:hover {
+	border-color: #84cc16;
+	background-color: #f9fafb;
+}
+
+.custom-select:focus {
+	outline: none;
+	box-shadow: 0 0 0 2px #64a30dc3;
+}
+
+.dropdown-arrow {
+	font-size: 12px;
+	color: #666;
+	transition: transform 0.3s ease;
+}
+
+.custom-select-container.open .dropdown-arrow {
+	transform: rotate(180deg);
+}
+
+.custom-select-options {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	max-height: 200px;
+	overflow-y: auto;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-top: none;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	z-index: 3;
+	display: none;
+}
+
+.custom-select-container.open .custom-select-options {
+	display: block;
+}
+
+.custom-select-option {
+	padding: 8px 12px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.custom-select-option:hover {
+	background-color: #64a30dc3;
+}
+
+.custom-select-option.selected {
+	background-color: #4d7f07c3;
+	color: white;
+}
+
+.custom-select-container:last-child .custom-select {
+	width: 80px;
+}
+
+.custom-select-options::-webkit-scrollbar {
+	width: 8px;
+}
+
+.custom-select-options::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+.custom-select-options::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 4px;
+}
+
+.custom-select-options::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.today-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 5px;
+	margin-right: 10px;
+	transition: color 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.today-button:hover {
+	color: #84cc16;
+}
+
+.today-button svg {
+	margin: 10px;
+	width: 25px;
+	height: 25px;
 }

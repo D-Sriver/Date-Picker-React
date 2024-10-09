@@ -21,6 +21,84 @@ const DatePicker: React.FC<DatePickerProps> = ({
 	const [isOpen, setIsOpen] = useState(false);
 	const datePickerRef = useRef<HTMLDivElement>(null);
 
+	const [isMonthOpen, setIsMonthOpen] = useState(false);
+	const [isYearOpen, setIsYearOpen] = useState(false);
+
+	const yearListRef = useRef<HTMLDivElement>(null);
+	const monthListRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (isYearOpen && yearListRef.current) {
+			const selectedYearElement =
+				yearListRef.current.querySelector('.selected');
+			if (selectedYearElement) {
+				selectedYearElement.scrollIntoView({
+					block: 'center',
+					behavior: 'auto',
+				});
+			}
+		}
+	}, [isYearOpen]);
+
+	useEffect(() => {
+		if (isMonthOpen && monthListRef.current) {
+			const selectedMonthElement =
+				monthListRef.current.querySelector('.selected');
+			if (selectedMonthElement) {
+				selectedMonthElement.scrollIntoView({
+					block: 'center',
+					behavior: 'auto',
+				});
+			}
+		}
+	}, [isMonthOpen]);
+
+	const toggleMonthDropdown = () => {
+		setIsMonthOpen(!isMonthOpen);
+		if (!isMonthOpen) {
+			setTimeout(() => {
+				if (monthListRef.current) {
+					const selectedMonthElement =
+						monthListRef.current.querySelector('.selected');
+					if (selectedMonthElement) {
+						selectedMonthElement.scrollIntoView({
+							block: 'center',
+							behavior: 'auto',
+						});
+					}
+				}
+			}, 0);
+		}
+	};
+
+	const toggleYearDropdown = () => {
+		setIsYearOpen(!isYearOpen);
+		if (!isYearOpen) {
+			setTimeout(() => {
+				if (yearListRef.current) {
+					const selectedYearElement =
+						yearListRef.current.querySelector('.selected');
+					if (selectedYearElement) {
+						selectedYearElement.scrollIntoView({
+							block: 'center',
+							behavior: 'auto',
+						});
+					}
+				}
+			}, 0);
+		}
+	};
+
+	const handleMonthSelect = (month: number) => {
+		setCurrentDate(new Date(currentDate.getFullYear(), month, 1));
+		setIsMonthOpen(false);
+	};
+
+	const handleYearSelect = (year: number) => {
+		setCurrentDate(new Date(year, currentDate.getMonth(), 1));
+		setIsYearOpen(false);
+	};
+
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
@@ -79,19 +157,21 @@ const DatePicker: React.FC<DatePickerProps> = ({
 		setIsOpen(false);
 	};
 
-	const changeMonth = (increment: number, e: React.MouseEvent) => {
-		e.stopPropagation();
-		setCurrentDate(
-			new Date(currentDate.getFullYear(), currentDate.getMonth() + increment, 1)
-		);
-	};
+	const monthOptions = Array.from({ length: 12 }, (_, i) => (
+		<option key={i} value={i}>
+			{new Date(2000, i, 1).toLocaleString(locale, { month: 'long' })}
+		</option>
+	));
 
-	const changeYear = (increment: number, e: React.MouseEvent) => {
-		e.stopPropagation();
-		setCurrentDate(
-			new Date(currentDate.getFullYear() + increment, currentDate.getMonth(), 1)
-		);
-	};
+	const currentYear = new Date().getFullYear();
+	const yearOptions = Array.from(
+		{ length: 41 },
+		(_, i) => currentYear - 20 + i
+	).map((year) => (
+		<option key={year} value={year}>
+			{year}
+		</option>
+	));
 
 	const toggleDatePicker = (e: React.MouseEvent) => {
 		e.stopPropagation();
@@ -105,6 +185,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
 	const handleCalendarClick = (e: React.MouseEvent) => {
 		e.stopPropagation();
+	};
+
+	const goToToday = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		const today = new Date();
+		setCurrentDate(today);
+		setSelectedDate(today);
+		onChange(today);
 	};
 
 	return (
@@ -124,20 +212,72 @@ const DatePicker: React.FC<DatePickerProps> = ({
 			{isOpen && (
 				<div className="date-picker" onClick={handleCalendarClick}>
 					<div className="header">
-						<button onClick={(e) => changeYear(-1, e)} className="year-nav">
-							&lt;&lt;
+						<button
+							className="today-button"
+							onClick={goToToday}
+							title="Aller à aujourd'hui"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							>
+								<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+								<polyline points="9 22 9 12 15 12 15 22"></polyline>
+							</svg>
 						</button>
-						<button onClick={(e) => changeMonth(-1, e)}>&lt;</button>
-						<span>
-							{currentDate.toLocaleString(locale, {
-								month: 'long',
-								year: 'numeric',
-							})}
-						</span>
-						<button onClick={(e) => changeMonth(1, e)}>&gt;</button>
-						<button onClick={(e) => changeYear(1, e)} className="year-nav">
-							&gt;&gt;
-						</button>
+						<div
+							className={`custom-select-container ${isMonthOpen ? 'open' : ''}`}
+						>
+							<div className="custom-select" onClick={toggleMonthDropdown}>
+								<span>
+									{currentDate.toLocaleString(locale, { month: 'long' })}
+								</span>
+								<span className="dropdown-arrow">▼</span>
+							</div>
+							<div className="custom-select-options" ref={monthListRef}>
+								{monthOptions.map((option, index) => (
+									<div
+										key={index}
+										className={`custom-select-option ${
+											currentDate.getMonth() === index ? 'selected' : ''
+										}`}
+										onClick={() => handleMonthSelect(index)}
+									>
+										{option.props.children}
+									</div>
+								))}
+							</div>
+						</div>
+						<div
+							className={`custom-select-container ${isYearOpen ? 'open' : ''}`}
+						>
+							<div className="custom-select" onClick={toggleYearDropdown}>
+								<span>{currentDate.getFullYear()}</span>
+								<span className="dropdown-arrow">▼</span>
+							</div>
+							<div className="custom-select-options" ref={yearListRef}>
+								{yearOptions.map((option) => (
+									<div
+										key={option.props.value}
+										className={`custom-select-option ${
+											currentDate.getFullYear() === option.props.value
+												? 'selected'
+												: ''
+										}`}
+										onClick={() => handleYearSelect(option.props.value)}
+									>
+										{option.props.children}
+									</div>
+								))}
+							</div>
+						</div>
 					</div>
 					<div className="calendar">
 						<div className="weekdays">
