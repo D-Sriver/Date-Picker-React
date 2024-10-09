@@ -98,6 +98,10 @@ Les contributions sont les bienvenues ! Veuillez suivre ces étapes pour contrib
 
 ## Changelog
 
+#### Version 1.0.5
+
+- changement de date par liste déroulante
+
 #### Version 1.0.4
 
 - Implementation de la prévention de la propagation des événements
@@ -216,6 +220,10 @@ Contributions are welcome! Please follow these steps to contribute:
 5. Open a Pull Request
 
 ## Changelog
+
+#### Version 1.0.5
+
+- Date change by dropdown list
 
 #### Version 1.0.4
 
