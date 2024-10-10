@@ -1,6 +1,6 @@
 {
 	"name": "@sriver/date-picker-react-v2",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Date-picker-react-oc-v2",
 	"main": "index.js",
 	"scripts": {

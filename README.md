@@ -28,10 +28,10 @@ Un composant DatePicker. Pour la sélection de date.
 
 - Simple, léger et performant
 - Utilisation de TypeScript
-- Sélection de date par simple clic
-- Navigation fluide entre les mois et les années
+- Sélection de date par menu déroulant
 - Personnalisable sans framework css
 - Prend en compte la localisation pour l'affichage des mois en fonction de la langue
+- Permet la personalization des couleurs avec les props
 - Fermeture automatique lors d'un clic à l'extérieur
 
 ## Installation
@@ -79,12 +79,15 @@ function BasicExample() {
 
 Le composant DatePicker peut être personnalisé avec les props suivantes :
 
-| Prop        | Type     | Default    | Description                                      |
-| ----------- | -------- | ---------- | ------------------------------------------------ |
-| onChange    | Function | -          | Fonction appelée lors de la sélection d'une date |
-| initialDate | Date     | new Date() | Date initiale à afficher                         |
-| name        | string   | ''         | Nom du champ de saisie                           |
-| locale      | string   | 'en-US'    | Code de langue pour la localisation              |
+| Prop           | Type     | Default    | Description                                      |
+| -------------- | -------- | ---------- | ------------------------------------------------ |
+| onChange       | Function | -          | Fonction appelée lors de la sélection d'une date |
+| initialDate    | Date     | new Date() | Date initiale à afficher                         |
+| name           | string   | ''         | Nom du champ de saisie                           |
+| locale         | string   | 'en-US'    | Code de langue pour la localisation              |
+| colorPrimary   | string   | '#4caf50'  | Couleur principale du composant                  |
+| colorSecondary | string   | '#ffffff'  | Couleur secondaire (fond) du composant           |
+| colorTertiary  | string   | '#333333'  | Couleur tertiaire (texte) du composant           |
 
 ## Contribution
 
@@ -97,6 +100,10 @@ Les contributions sont les bienvenues ! Veuillez suivre ces étapes pour contrib
 5. Ouvrez une Pull Request
 
 ## Changelog
+
+#### Version 1.0.6
+
+- Ajout de la personnalisation de la couleur avec les props
 
 #### Version 1.0.5
 
@@ -151,11 +158,11 @@ A DatePicker component for date selection.
 
 - Simple, lightweight, and performant
 - TypeScript usage
-- Date selection with a single click
-- Smooth navigation between months and years
+- Date selection with a dropdown list
 - Customizable without CSS framework
 - Localization support for month display based on language
 - Automatic closure when clicking outside
+- Add custom color with props
 
 ## Installation
 
@@ -202,12 +209,15 @@ function BasicExample() {
 
 The DatePicker component can be customized with the following props:
 
-| Prop        | Type     | Default    | Description                             |
-| ----------- | -------- | ---------- | --------------------------------------- |
-| onChange    | Function | -          | Function called when a date is selected |
-| initialDate | Date     | new Date() | Initial date to display                 |
-| name        | string   | ''         | Name of the input field                 |
-| locale      | string   | 'en-US'    | Language code for localization          |
+| Prop           | Type     | Default    | Description                             |
+| -------------- | -------- | ---------- | --------------------------------------- |
+| onChange       | Function | -          | Function called when a date is selected |
+| initialDate    | Date     | new Date() | Initial date to display                 |
+| name           | string   | ''         | Name of the input field                 |
+| locale         | string   | 'en-US'    | Language code for localization          |
+| colorPrimary   | string   | '#4caf50'  | Primary color of the component          |
+| colorSecondary | string   | '#ffffff'  | Secondary (background) color            |
+| colorTertiary  | string   | '#333333'  | Tertiary (text) color                   |
 
 ## Contribution
 
@@ -220,6 +230,10 @@ Contributions are welcome! Please follow these steps to contribute:
 5. Open a Pull Request
 
 ## Changelog
+
+#### Version 1.0.6
+
+- Add custom color with css variables and props
 
 #### Version 1.0.5
 

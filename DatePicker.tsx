@@ -6,13 +6,19 @@ interface DatePickerProps {
 	initialDate?: Date;
 	name: string;
 	locale?: string; // Ajout de la prop locale
+	colorPrimary?: string;
+	colorSecondary?: string;
+	colorTertiary?: string;
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
 	onChange,
 	initialDate,
 	name,
-	locale = 'en-US', // Valeur par défaut pour la locale
+	locale = 'en-US',
+	colorPrimary = '#4caf50',
+	colorSecondary = '#ffffff',
+	colorTertiary = '#333333',
 }) => {
 	const [currentDate, setCurrentDate] = useState(initialDate || new Date());
 	const [selectedDate, setSelectedDate] = useState<Date | null>(
@@ -194,6 +200,20 @@ const DatePicker: React.FC<DatePickerProps> = ({
 		setSelectedDate(today);
 		onChange(today);
 	};
+
+	useEffect(() => {
+		if (datePickerRef.current) {
+			datePickerRef.current.style.setProperty('--color-primary', colorPrimary);
+			datePickerRef.current.style.setProperty(
+				'--color-secondary',
+				colorSecondary
+			);
+			datePickerRef.current.style.setProperty(
+				'--color-tertiary',
+				colorTertiary
+			);
+		}
+	}, [colorPrimary, colorSecondary, colorTertiary]);
 
 	return (
 		<div className="date-picker-container" ref={datePickerRef}>
