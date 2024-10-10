@@ -7,20 +7,9 @@ Un composant DatePicker pour la sélection de date.
 
 ![Image du sélecteur de date](https://github.com/D-Sriver/Date-Picker-React/raw/main/datepiker.gif)
 
-[English Version](#english-version)
-
 [Version française](#version-française)
 
 # English Version
-
-# React DatePicker Component
-
-[![npm version](https://badge.fury.io/js/%40sriver%2Fdate-picker-react-v2.svg)](https://badge.fury.io/js/%40sriver%2Fdate-picker-react-v2)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-A DatePicker component for date selection.
-
-![Date picker image](https://github.com/D-Sriver/Date-Picker-React/raw/main/datepiker.gif)
 
 ## Table of Contents
 
