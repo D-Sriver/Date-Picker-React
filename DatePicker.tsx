@@ -4,11 +4,24 @@ import './DatePicker.css';
 interface DatePickerProps {
 	onChange: (date: Date) => void;
 	initialDate?: Date;
-	name: string;
-	locale?: string; // Ajout de la prop locale
-	colorPrimary?: string;
-	colorSecondary?: string;
-	colorTertiary?: string;
+	name: string; // name of the input
+	locale?: string; // locale of the datepicker
+	//---
+	colorPrimary?: string; // primary color of the datepicker
+	colorSecondary?: string; // secondary color of the datepicker
+	colorTertiary?: string; // tertiary color of the datepicker
+	// ---
+	colorBackgroundField?: string; // background color of the datepicker
+	colorBackgroundSelect?: string; // background color of the datepicker
+	blurBackground?: number; // amount of blur for the background of the datepicker
+	colorBorderField?: string; // border color of the datepicker
+	colorTextField?: string; // text color of the datepicker
+	placeholder?: string; // placeholder of the datepicker
+	placeholderColor?: string; // placeholder color of the datepicker
+	// ---
+	colorIcon?: string; // icon color of the datepicker
+	yearRangeStart?: number; // start year of the datepicker
+	yearRangeEnd?: number; // end year of the datepicker
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
@@ -19,6 +32,16 @@ const DatePicker: React.FC<DatePickerProps> = ({
 	colorPrimary = '#4caf50',
 	colorSecondary = '#ffffff',
 	colorTertiary = '#333333',
+	colorBackgroundField = '#ffffff',
+	blurBackground = 2,
+	colorBackgroundSelect = 'rgba(0, 0, 0, 0.2)',
+	colorBorderField = '#d1d5db',
+	colorTextField = '#333333',
+	placeholder = 'Select a date',
+	placeholderColor = '#333333',
+	colorIcon = '#333333',
+	yearRangeStart = 100,
+	yearRangeEnd = 10,
 }) => {
 	const [currentDate, setCurrentDate] = useState(initialDate || new Date());
 	const [selectedDate, setSelectedDate] = useState<Date | null>(
@@ -169,15 +192,20 @@ const DatePicker: React.FC<DatePickerProps> = ({
 		</option>
 	));
 
-	const currentYear = new Date().getFullYear();
-	const yearOptions = Array.from(
-		{ length: 41 },
-		(_, i) => currentYear - 20 + i
-	).map((year) => (
-		<option key={year} value={year}>
-			{year}
-		</option>
-	));
+	const generateYearOptions = () => {
+		const currentYear = new Date().getFullYear();
+		const startYear = currentYear - yearRangeStart;
+		const endYear = currentYear + yearRangeEnd;
+
+		return Array.from({ length: endYear - startYear + 1 }, (_, index) => {
+			const year = startYear + index;
+			return (
+				<option key={year} value={year}>
+					{year}
+				</option>
+			);
+		});
+	};
 
 	const toggleDatePicker = (e: React.MouseEvent) => {
 		e.stopPropagation();
@@ -203,6 +231,30 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
 	useEffect(() => {
 		if (datePickerRef.current) {
+			datePickerRef.current.style.setProperty(
+				'--color-background-select',
+				colorBackgroundSelect
+			);
+			datePickerRef.current.style.setProperty(
+				'--blur-background',
+				blurBackground.toString() + 'px'
+			);
+			datePickerRef.current.style.setProperty(
+				'--color-text-field',
+				colorTextField
+			);
+			datePickerRef.current.style.setProperty(
+				'--color-background-field',
+				colorBackgroundField
+			);
+			datePickerRef.current.style.setProperty(
+				'--color-placeholder',
+				placeholderColor
+			);
+			datePickerRef.current.style.setProperty(
+				'--color-border-field',
+				colorBorderField
+			);
 			datePickerRef.current.style.setProperty('--color-primary', colorPrimary);
 			datePickerRef.current.style.setProperty(
 				'--color-secondary',
@@ -212,8 +264,20 @@ const DatePicker: React.FC<DatePickerProps> = ({
 				'--color-tertiary',
 				colorTertiary
 			);
+			datePickerRef.current.style.setProperty('--color-icon', colorIcon);
 		}
-	}, [colorPrimary, colorSecondary, colorTertiary]);
+	}, [
+		colorPrimary,
+		colorSecondary,
+		colorTertiary,
+		colorBackgroundField,
+		colorTextField,
+		colorBorderField,
+		colorBackgroundSelect,
+		blurBackground,
+		colorIcon,
+		placeholderColor,
+	]);
 
 	return (
 		<div className="date-picker-container" ref={datePickerRef}>
@@ -224,8 +288,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
 					name={name}
 					value={formatDate(selectedDate)}
 					readOnly
-					placeholder="Select a date"
-					className="date-input-field rounded-md border border-gray-300/50 bg-white/50 px-3 py-2 backdrop-blur-sm focus:border-lime-500 focus:outline-none focus:ring-1 focus:ring-lime-500"
+					placeholder={placeholder}
+					className="date-input-field"
 				/>
 				<span className="calendar-icon"></span>
 			</div>
@@ -283,7 +347,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 								<span className="dropdown-arrow">▼</span>
 							</div>
 							<div className="custom-select-options" ref={yearListRef}>
-								{yearOptions.map((option) => (
+								{generateYearOptions().map((option) => (
 									<div
 										key={option.props.value}
 										className={`custom-select-option ${
